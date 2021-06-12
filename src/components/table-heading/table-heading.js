@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import SortIndicator from '../sort-indicator';
 import './table-heading.css';
 
 class TableHeading extends Component {
@@ -20,7 +21,6 @@ class TableHeading extends Component {
     } = this.props.sortFunctions;
 
     const onIdClick = () => {
-      onIdSort();
       this.setState((state) => {
         const { sortById } = state;
         const sortOrder = sortById === `default` ? true : !sortById;
@@ -32,9 +32,10 @@ class TableHeading extends Component {
           sortByPhone: `default`,
         };
       });
+
+      onIdSort(this.state.sortById);
     };
     const onFirstNameClick = () => {
-      onFirstNameSort();
       this.setState((state) => {
         const { sortByFirstName } = state;
         const sortOrder =
@@ -47,9 +48,9 @@ class TableHeading extends Component {
           sortByPhone: `default`,
         };
       });
+      onFirstNameSort(this.state.sortByFirstName);
     };
     const onLastNameClick = () => {
-      onLastNameSort();
       this.setState((state) => {
         const { sortByLastName } = state;
         const sortOrder = sortByLastName === `default` ? true : !sortByLastName;
@@ -61,9 +62,9 @@ class TableHeading extends Component {
           sortByPhone: `default`,
         };
       });
+      onLastNameSort(this.state.sortByLastName);
     };
     const onEmailClick = () => {
-      onEmailSort();
       this.setState((state) => {
         const { sortByEmail } = state;
         const sortOrder = sortByEmail === `default` ? true : !sortByEmail;
@@ -75,9 +76,9 @@ class TableHeading extends Component {
           sortByPhone: `default`,
         };
       });
+      onEmailSort(this.state.sortByEmail);
     };
     const onPhoneClick = () => {
-      onPhoneSort();
       this.setState((state) => {
         const { sortByPhone } = state;
         const sortOrder = sortByPhone === `default` ? true : !sortByPhone;
@@ -89,32 +90,26 @@ class TableHeading extends Component {
           sortByPhone: sortOrder,
         };
       });
+      onPhoneSort(this.state.sortByPhone);
     };
 
-    const getSortIndicator = (state) => {
-      if (state === `default`) {
-        return null;
-      }
-      const indicator = state ? <span>Up</span> : <span>Down</span>;
-      return indicator;
-    };
-
-    const idSortIndicator = getSortIndicator(this.state.sortById);
-    const firstNameSortIndicator = getSortIndicator(this.state.sortByFirstName);
-    const lastNameSortIndicator = getSortIndicator(this.state.sortByLastName);
-    const emailSortIndicator = getSortIndicator(this.state.sortByEmail);
-    const phoneSortIndicator = getSortIndicator(this.state.sortByPhone);
-
-    console.log(this.state);
     return (
       <div className='table-heading'>
-        <span onClick={onIdClick}>ID {idSortIndicator}</span>
-        <span onClick={onFirstNameClick}>
-          First Name {firstNameSortIndicator}
+        <span onClick={onIdClick}>
+          ID <SortIndicator state={this.state.sortById} />
         </span>
-        <span onClick={onLastNameClick}>Last Name {lastNameSortIndicator}</span>
-        <span onClick={onEmailClick}>E-mail {emailSortIndicator}</span>
-        <span onClick={onPhoneClick}>Phone {phoneSortIndicator}</span>
+        <span onClick={onFirstNameClick}>
+          First Name <SortIndicator state={this.state.sortByFirstName} />
+        </span>
+        <span onClick={onLastNameClick}>
+          Last Name <SortIndicator state={this.state.sortByLastName} />
+        </span>
+        <span onClick={onEmailClick}>
+          E-mail <SortIndicator state={this.state.sortByEmail} />
+        </span>
+        <span onClick={onPhoneClick}>
+          Phone <SortIndicator state={this.state.sortByPhone} />
+        </span>
       </div>
     );
   }

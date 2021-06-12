@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ApiService from '../../services/api-service';
+import { sortData } from '../utils';
 
 import Header from '../header';
 import ItemList from '../item-list';
@@ -29,23 +30,28 @@ class App extends Component {
     });
   };
 
-  onIdSort = () => {
-    console.log(`onIdSort`);
+  onIdSort = (state) => {
+    const sortedData = sortData(this.state.items, `id`, state);
+    this.setState({ items: sortedData });
   };
-  onFirstNameSort = () => {
-    console.log(`onFirstNameSort`);
-  };
-
-  onLastNameSort = () => {
-    console.log(`onLastNameSort`);
+  onFirstNameSort = (state) => {
+    const sortedData = sortData(this.state.items, `firstName`, state);
+    this.setState({ items: sortedData });
   };
 
-  onEmailSort = () => {
-    console.log(`onEmailSort`);
+  onLastNameSort = (state) => {
+    const sortedData = sortData(this.state.items, `lastName`, state);
+    this.setState({ items: sortedData });
   };
 
-  onPhoneSort = () => {
-    console.log(`onPhoneSort`);
+  onEmailSort = (state) => {
+    const sortedData = sortData(this.state.items, `email`, state);
+    this.setState({ items: sortedData });
+  };
+
+  onPhoneSort = (state) => {
+    const sortedData = sortData(this.state.items, `phone`, state);
+    this.setState({ items: sortedData });
   };
 
   render() {
