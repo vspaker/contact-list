@@ -1,0 +1,9 @@
+.table-heading {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.table-heading span {
+  cursor: pointer;
+}

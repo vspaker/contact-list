@@ -11,6 +11,7 @@ class App extends Component {
     items: null,
     isLoading: false,
   };
+
   apiService = new ApiService();
 
   setSmallData = () => {
@@ -28,11 +29,37 @@ class App extends Component {
     });
   };
 
+  onIdSort = () => {
+    console.log(`onIdSort`);
+  };
+  onFirstNameSort = () => {
+    console.log(`onFirstNameSort`);
+  };
+
+  onLastNameSort = () => {
+    console.log(`onLastNameSort`);
+  };
+
+  onEmailSort = () => {
+    console.log(`onEmailSort`);
+  };
+
+  onPhoneSort = () => {
+    console.log(`onPhoneSort`);
+  };
+
   render() {
     const items = this.state.isLoading ? (
       <LoadIndicator />
     ) : (
-      <ItemList data={this.state.items} />
+      <ItemList
+        data={this.state.items}
+        onIdSort={this.onIdSort}
+        onFirstNameSort={this.onFirstNameSort}
+        onLastNameSort={this.onLastNameSort}
+        onEmailSort={this.onEmailSort}
+        onPhoneSort={this.onPhoneSort}
+      />
     );
     return (
       <ErrorBoundry>

@@ -3,11 +3,12 @@ import ErrorBoundry from '../error-boundry';
 
 class Header extends Component {
   render() {
+    const { onSmallClick, onFullClick } = this.props;
     return (
       <ErrorBoundry>
         <header>
-          <button onClick={this.props.onSmallClick}>Small</button>
-          <button onClick={this.props.onFullClick}>Full</button>
+          <button onClick={onSmallClick}>Small</button>
+          <button onClick={onFullClick}>Full</button>
         </header>
       </ErrorBoundry>
     );
