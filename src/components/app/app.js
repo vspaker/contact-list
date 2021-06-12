@@ -22,6 +22,7 @@ class App extends Component {
       this.setState({ items });
     });
   };
+
   setFullData = () => {
     this.setState({ isLoading: true });
     this.apiService.getFullData().then((items) => {
@@ -30,27 +31,8 @@ class App extends Component {
     });
   };
 
-  onIdSort = (state) => {
-    const sortedData = sortData(this.state.items, `id`, state);
-    this.setState({ items: sortedData });
-  };
-  onFirstNameSort = (state) => {
-    const sortedData = sortData(this.state.items, `firstName`, state);
-    this.setState({ items: sortedData });
-  };
-
-  onLastNameSort = (state) => {
-    const sortedData = sortData(this.state.items, `lastName`, state);
-    this.setState({ items: sortedData });
-  };
-
-  onEmailSort = (state) => {
-    const sortedData = sortData(this.state.items, `email`, state);
-    this.setState({ items: sortedData });
-  };
-
-  onPhoneSort = (state) => {
-    const sortedData = sortData(this.state.items, `phone`, state);
+  setSortedData = (state, criteria) => {
+    const sortedData = sortData(this.state.items, criteria, state);
     this.setState({ items: sortedData });
   };
 
@@ -58,14 +40,7 @@ class App extends Component {
     const items = this.state.isLoading ? (
       <LoadIndicator />
     ) : (
-      <ItemList
-        data={this.state.items}
-        onIdSort={this.onIdSort}
-        onFirstNameSort={this.onFirstNameSort}
-        onLastNameSort={this.onLastNameSort}
-        onEmailSort={this.onEmailSort}
-        onPhoneSort={this.onPhoneSort}
-      />
+      <ItemList data={this.state.items} sortData={this.setSortedData} />
     );
     return (
       <ErrorBoundry>

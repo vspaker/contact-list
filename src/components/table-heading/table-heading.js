@@ -12,13 +12,7 @@ class TableHeading extends Component {
   };
 
   render() {
-    const {
-      onIdSort,
-      onFirstNameSort,
-      onLastNameSort,
-      onEmailSort,
-      onPhoneSort,
-    } = this.props.sortFunctions;
+    const { sortData } = this.props;
 
     const onIdClick = () => {
       this.setState((state) => {
@@ -33,7 +27,7 @@ class TableHeading extends Component {
         };
       });
 
-      onIdSort(this.state.sortById);
+      sortData(this.state.sortById, `id`);
     };
     const onFirstNameClick = () => {
       this.setState((state) => {
@@ -48,7 +42,7 @@ class TableHeading extends Component {
           sortByPhone: `default`,
         };
       });
-      onFirstNameSort(this.state.sortByFirstName);
+      sortData(this.state.sortByFirstName, `firstName`);
     };
     const onLastNameClick = () => {
       this.setState((state) => {
@@ -62,7 +56,7 @@ class TableHeading extends Component {
           sortByPhone: `default`,
         };
       });
-      onLastNameSort(this.state.sortByLastName);
+      sortData(this.state.sortByLastName, `lastName`);
     };
     const onEmailClick = () => {
       this.setState((state) => {
@@ -76,7 +70,7 @@ class TableHeading extends Component {
           sortByPhone: `default`,
         };
       });
-      onEmailSort(this.state.sortByEmail);
+      sortData(this.state.sortByEmail, `email`);
     };
     const onPhoneClick = () => {
       this.setState((state) => {
@@ -90,7 +84,7 @@ class TableHeading extends Component {
           sortByPhone: sortOrder,
         };
       });
-      onPhoneSort(this.state.sortByPhone);
+      sortData(this.state.sortByPhone, `phone`);
     };
 
     return (

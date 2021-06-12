@@ -5,7 +5,7 @@ import TableHeading from '../table-heading';
 import './item-list.css';
 
 const ItemList = (props) => {
-  const { data, ...sortFunctions } = props;
+  const { data, sortData } = props;
 
   const items = data
     ? data.map((item) => {
@@ -14,7 +14,7 @@ const ItemList = (props) => {
       })
     : null;
 
-  const heading = data ? <TableHeading sortFunctions={sortFunctions} /> : null;
+  const heading = data ? <TableHeading sortData={sortData} /> : null;
 
   return (
     <React.Fragment>
