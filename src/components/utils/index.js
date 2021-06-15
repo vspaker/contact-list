@@ -1,3 +1,3 @@
-import { sortData } from './utils';
+import { sortData, range } from './utils';
 
-export { sortData };
+export { sortData, range };

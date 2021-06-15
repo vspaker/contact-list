@@ -7,14 +7,15 @@ import './item-list.css';
 const ItemList = (props) => {
   const { data, sortData } = props;
 
-  const items = data
-    ? data.map((item) => {
-        const { key } = item;
-        return <ItemDetails key={key}>{item}</ItemDetails>;
-      })
-    : null;
+  const items =
+    data.length > 0
+      ? data.map((item) => {
+          const { key } = item;
+          return <ItemDetails key={key}>{item}</ItemDetails>;
+        })
+      : null;
 
-  const heading = data ? <TableHeading sortData={sortData} /> : null;
+  const heading = data.length > 0 ? <TableHeading sortData={sortData} /> : null;
 
   return (
     <React.Fragment>

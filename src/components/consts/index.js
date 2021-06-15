@@ -1,0 +1,3 @@
+import { MAX_ITEMS_PER_PAGE, LEFT_PAGE, RIGHT_PAGE } from './consts';
+
+export { MAX_ITEMS_PER_PAGE, LEFT_PAGE, RIGHT_PAGE };

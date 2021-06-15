@@ -13,4 +13,16 @@ const sortData = (arr, criteria, direction) => {
   return dataToSort;
 };
 
-export { sortData };
+const range = (from, to, step = 1) => {
+  let i = from;
+  const range = [];
+
+  while (i <= to) {
+    range.push(i);
+    i += step;
+  }
+
+  return range;
+};
+
+export { sortData, range };

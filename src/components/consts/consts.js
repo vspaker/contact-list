@@ -1,0 +1,5 @@
+const MAX_ITEMS_PER_PAGE = 50;
+const LEFT_PAGE = `LEFT`;
+const RIGHT_PAGE = `RIGHT`;
+
+export { MAX_ITEMS_PER_PAGE, LEFT_PAGE, RIGHT_PAGE };
