@@ -3,10 +3,10 @@ const sortData = (arr, criteria, direction) => {
 
   dataToSort.sort((a, b) => {
     if (a[criteria] < b[criteria]) {
-      return direction === true ? -1 : 1;
+      return direction === true ? 1 : -1;
     }
     if (a[criteria] > b[criteria]) {
-      return direction === true ? 1 : -1;
+      return direction === true ? -1 : 1;
     }
     return 0;
   });
