@@ -4,7 +4,7 @@ const SortIndicator = ({ state }) => {
   if (state === `default`) {
     return null;
   }
-  const indicator = state ? <span>↓</span> : <span>↑</span>;
+  const indicator = state ? <span>↑</span> : <span>↓</span>;
   return indicator;
 };
 

@@ -21,7 +21,8 @@ class App extends Component {
 
   apiService = new ApiService();
 
-  setSmallData = () => {
+  setSmallData = (e) => {
+    e.stopPropagation();
     this.setState({ isLoading: true });
     this.apiService.getSmallData().then((items) => {
       this.setState({ isLoading: false });
@@ -29,7 +30,8 @@ class App extends Component {
     });
   };
 
-  setFullData = () => {
+  setFullData = (e) => {
+    e.stopPropagation();
     this.setState({ isLoading: true });
     this.apiService.getFullData().then((items) => {
       this.setState({ isLoading: false });
@@ -38,22 +40,27 @@ class App extends Component {
   };
 
   setSortedData = (state, criteria) => {
-    const itemsToSort =
-      this.state.currentItems.length !== 0
-        ? this.state.currentItems
-        : this.state.items;
-    const sortedData = sortData(itemsToSort, criteria, state);
-    if (this.state.currentItems.length !== 0) {
-      this.setState({ currentItems: sortedData });
-    }
+    const { items } = this.state;
+    const sortedData = sortData(items, criteria, state);
     this.setState({ items: sortedData });
+    this.updateItems(sortedData);
   };
 
-  onPageChanged = (data) => {
+  updateItems = (newItems = []) => {
     const { items } = this.state;
+    if (items.length > MAX_ITEMS_PER_PAGE) {
+      const { currentPage, totalPages } = this.state;
+      const pageLimit = MAX_ITEMS_PER_PAGE;
+      const totalRecords = items.length;
+      const data = { currentPage, totalPages, pageLimit, totalRecords };
+      this.onPageChanged(data, newItems);
+    }
+  };
+
+  onPageChanged = (data, newItems = this.state.items) => {
     const { currentPage, totalPages, pageLimit } = data;
     const offset = (currentPage - 1) * pageLimit;
-    const currentItems = items.slice(offset, offset + pageLimit);
+    const currentItems = newItems.slice(offset, offset + pageLimit);
     this.setState({ currentPage, currentItems, totalPages });
   };
 
