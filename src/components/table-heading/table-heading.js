@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import SortIndicator from '../sort-indicator';
+import FilterTextarea from '../filter-textarea';
 import './table-heading.css';
 
 class TableHeading extends Component {
@@ -12,7 +13,7 @@ class TableHeading extends Component {
   };
 
   render() {
-    const { sortData } = this.props;
+    const { sortData, onSearch } = this.props;
 
     const onIdClick = () => {
       this.setState((state) => {
@@ -88,23 +89,26 @@ class TableHeading extends Component {
     };
 
     return (
-      <div className='table-heading'>
-        <span onClick={onIdClick}>
-          ID <SortIndicator state={this.state.sortById} />
-        </span>
-        <span onClick={onFirstNameClick}>
-          First Name <SortIndicator state={this.state.sortByFirstName} />
-        </span>
-        <span onClick={onLastNameClick}>
-          Last Name <SortIndicator state={this.state.sortByLastName} />
-        </span>
-        <span onClick={onEmailClick}>
-          E-mail <SortIndicator state={this.state.sortByEmail} />
-        </span>
-        <span onClick={onPhoneClick}>
-          Phone <SortIndicator state={this.state.sortByPhone} />
-        </span>
-      </div>
+      <React.Fragment>
+        <FilterTextarea onSearch={onSearch} />
+        <div className='table-heading'>
+          <span onClick={onIdClick}>
+            ID <SortIndicator state={this.state.sortById} />
+          </span>
+          <span onClick={onFirstNameClick}>
+            First Name <SortIndicator state={this.state.sortByFirstName} />
+          </span>
+          <span onClick={onLastNameClick}>
+            Last Name <SortIndicator state={this.state.sortByLastName} />
+          </span>
+          <span onClick={onEmailClick}>
+            E-mail <SortIndicator state={this.state.sortByEmail} />
+          </span>
+          <span onClick={onPhoneClick}>
+            Phone <SortIndicator state={this.state.sortByPhone} />
+          </span>
+        </div>
+      </React.Fragment>
     );
   }
 }

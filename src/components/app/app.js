@@ -13,10 +13,12 @@ import { MAX_ITEMS_PER_PAGE } from '../consts';
 class App extends Component {
   state = {
     items: [],
+    backUpItems: [],
     isLoading: false,
     currentItems: [],
     currentPage: null,
     totalPages: null,
+    searchMode: false,
   };
 
   apiService = new ApiService();
@@ -26,7 +28,7 @@ class App extends Component {
     this.setState({ isLoading: true });
     this.apiService.getSmallData().then((items) => {
       this.setState({ isLoading: false });
-      this.setState({ items });
+      this.setState({ items, backUpItems: items });
     });
   };
 
@@ -35,7 +37,7 @@ class App extends Component {
     this.setState({ isLoading: true });
     this.apiService.getFullData().then((items) => {
       this.setState({ isLoading: false });
-      this.setState({ items });
+      this.setState({ items, backUpItems: items });
     });
   };
 
@@ -64,13 +66,33 @@ class App extends Component {
     this.setState({ currentPage, currentItems, totalPages });
   };
 
+  onSearch = (text) => {
+    const { backUpItems } = this.state;
+    const filteredData = backUpItems.filter((item) => {
+      return (
+        String(item['id']).toLowerCase().includes(text.toLowerCase()) ||
+        item['firstName'].toLowerCase().includes(text.toLowerCase()) ||
+        item['lastName'].toLowerCase().includes(text.toLowerCase()) ||
+        item['email'].toLowerCase().includes(text.toLowerCase()) ||
+        String(item['phone']).toLowerCase().includes(text.toLowerCase())
+      );
+    });
+    this.setState({ items: filteredData, searchMode: true });
+    this.updateItems(filteredData);
+  };
+
   render() {
-    const { items, currentItems } = this.state;
+    const { items, currentItems, searchMode } = this.state;
     const itemsToRender = currentItems.length !== 0 ? currentItems : items;
     const itemList = this.state.isLoading ? (
       <LoadIndicator />
     ) : (
-      <ItemList data={itemsToRender} sortData={this.setSortedData} />
+      <ItemList
+        data={itemsToRender}
+        sortData={this.setSortedData}
+        onSearch={this.onSearch}
+        searchMode={searchMode}
+      />
     );
 
     const totalItems = items.length;

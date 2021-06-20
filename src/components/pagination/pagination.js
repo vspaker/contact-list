@@ -22,7 +22,14 @@ class Pagination extends Component {
 
     this.totalPages = Math.ceil(this.totalRecords / this.pageLimit);
 
-    this.state = { currentPage: 1 };
+    this.state = { currentPage: 1, key: null };
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps !== this.props) {
+      this.totalPages = Math.ceil(this.props.totalRecords / this.pageLimit);
+      this.setState({ key: Math.random() });
+    }
   }
 
   fetchPageNumbers = () => {
