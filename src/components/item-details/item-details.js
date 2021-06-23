@@ -3,8 +3,9 @@ import './item-details.css';
 
 const ItemDetails = (props) => {
   const { id, firstName, lastName, email, phone } = props.children;
+  const { onClickHandler } = props;
   return (
-    <li className='list-item-details'>
+    <li className='list-item-details' onClick={onClickHandler}>
       <span>{id}</span>
       <span>{firstName}</span>
       <span>{lastName}</span>

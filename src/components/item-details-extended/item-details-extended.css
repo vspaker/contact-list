@@ -1,0 +1,4 @@
+.extended-details span,
+.extended-details span textarea {
+  display: block;
+}
