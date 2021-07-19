@@ -1,16 +1,3 @@
 .list-item-details {
-  width: auto;
-  margin: 20px auto;
-  display: flex;
-  justify-content: space-between;
-
   cursor: pointer;
-}
-
-.list-item-details span {
-  width: 210px;
-}
-
-.list-item-details span:first-child {
-  width: 100px;
 }

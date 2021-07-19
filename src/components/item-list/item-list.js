@@ -11,7 +11,7 @@ class ItemList extends Component {
   };
 
   render() {
-    const { data, sortData, onSearch, searchMode } = this.props;
+    const { data, sortData, searchMode } = this.props;
 
     const onClickHandler = (e, key) => {
       e.stopPropagation();
@@ -21,7 +21,6 @@ class ItemList extends Component {
         })
         .shift();
       this.setState({ itemToExtend: item });
-      // console.log(key);
     };
 
     const items =
@@ -43,7 +42,7 @@ class ItemList extends Component {
 
     const heading =
       data.length === 0 && !searchMode ? null : (
-        <TableHeading sortData={sortData} onSearch={onSearch} />
+        <TableHeading sortData={sortData} />
       );
 
     const itemToExtend = this.state.itemToExtend;
@@ -54,8 +53,12 @@ class ItemList extends Component {
 
     return (
       <React.Fragment>
-        {heading}
-        <ul className='app-ul'>{items}</ul>
+        <table className='items-table'>
+          <tbody>
+            {heading}
+            {items}
+          </tbody>
+        </table>
         {extendedDetails}
       </React.Fragment>
     );

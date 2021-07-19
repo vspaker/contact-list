@@ -1,0 +1,36 @@
+/* .add-form {
+  display: table;
+  width: 100%;
+}
+
+.form-heading {
+  display: table-header-group;
+  width: 100%;
+  text-align: center;
+}
+
+.form-body {
+  display: table-row;
+}
+
+.form-body input,
+.form-body button {
+  display: table-cell;
+} */
+
+table {
+  margin: 0 auto;
+  width: 100%;
+}
+
+table input {
+  width: 100%;
+}
+
+thead td {
+  text-align: center;
+}
+
+button {
+  margin: 0 auto;
+}

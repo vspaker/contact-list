@@ -7,8 +7,11 @@ import Header from '../header';
 import ItemList from '../item-list';
 import ErrorBoundry from '../error-boundry';
 import LoadIndicator from '../load-indicator';
+import ItemAdd from '../item-add';
+import FilterTextarea from '../filter-textarea';
+import AddButton from '../add-button';
 
-import { MAX_ITEMS_PER_PAGE } from '../consts';
+import { MAX_ITEMS_PER_PAGE, PAGE_NEIGHBOURS } from '../consts';
 
 class App extends Component {
   state = {
@@ -19,6 +22,7 @@ class App extends Component {
     currentPage: null,
     totalPages: null,
     searchMode: false,
+    addNewItemMode: false,
   };
 
   apiService = new ApiService();
@@ -28,7 +32,7 @@ class App extends Component {
     this.setState({ isLoading: true });
     this.apiService.getSmallData().then((items) => {
       this.setState({ isLoading: false });
-      this.setState({ items, backUpItems: items });
+      this.setState({ items, backUpItems: items, addNewItemMode: true });
     });
   };
 
@@ -37,7 +41,7 @@ class App extends Component {
     this.setState({ isLoading: true });
     this.apiService.getFullData().then((items) => {
       this.setState({ isLoading: false });
-      this.setState({ items, backUpItems: items });
+      this.setState({ items, backUpItems: items, addNewItemMode: true });
     });
   };
 
@@ -81,6 +85,17 @@ class App extends Component {
     this.updateItems(filteredData);
   };
 
+  onAddNewPersonButtonClick = (e) => {
+    e.preventDefault();
+    this.setState({ addNewItemMode: false });
+  };
+
+  onAddNewPersonFormSubmit = (item) => {
+    const items = this.state.items;
+    items.unshift(item);
+    this.setState({ addNewItemMode: true, items });
+  };
+
   render() {
     const { items, currentItems, searchMode } = this.state;
     const itemsToRender = currentItems.length !== 0 ? currentItems : items;
@@ -90,7 +105,6 @@ class App extends Component {
       <ItemList
         data={itemsToRender}
         sortData={this.setSortedData}
-        onSearch={this.onSearch}
         searchMode={searchMode}
       />
     );
@@ -102,18 +116,37 @@ class App extends Component {
         <Pagination
           totalRecords={totalItems}
           pageLimit={MAX_ITEMS_PER_PAGE}
-          pageNeighbours={1}
+          pageNeighbours={PAGE_NEIGHBOURS}
           onPageChanged={this.onPageChanged}
         />
       );
 
+    const isAppStarted = this.state.items.length > 0;
+    const addNewItemMode = this.state.addNewItemMode;
+
+    const addTable =
+      isAppStarted && !addNewItemMode ? (
+        <ItemAdd onNewPersonAdd={this.onAddNewPersonFormSubmit} />
+      ) : null;
+    const addButton =
+      isAppStarted && addNewItemMode ? (
+        <AddButton onNewPersonButtonClick={this.onAddNewPersonButtonClick} />
+      ) : null;
+
+    const filter = isAppStarted ? (
+      <FilterTextarea onSearch={this.onSearch} />
+    ) : null;
+    const firstScreen = isAppStarted ? null : (
+      <Header onSmallClick={this.setSmallData} onFullClick={this.setFullData} />
+    );
+
     return (
       <ErrorBoundry>
         <div className='App'>
-          <Header
-            onSmallClick={this.setSmallData}
-            onFullClick={this.setFullData}
-          />
+          {firstScreen}
+          {addTable}
+          {addButton}
+          {filter}
           {itemList}
           {pagination}
         </div>

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import SortIndicator from '../sort-indicator';
-import FilterTextarea from '../filter-textarea';
 import './table-heading.css';
 
 class TableHeading extends Component {
@@ -13,7 +12,7 @@ class TableHeading extends Component {
   };
 
   render() {
-    const { sortData, onSearch } = this.props;
+    const { sortData } = this.props;
 
     const onIdClick = () => {
       this.setState((state) => {
@@ -90,24 +89,33 @@ class TableHeading extends Component {
 
     return (
       <React.Fragment>
-        <FilterTextarea onSearch={onSearch} />
-        <div className='table-heading'>
-          <span onClick={onIdClick}>
-            ID <SortIndicator state={this.state.sortById} />
-          </span>
-          <span onClick={onFirstNameClick}>
-            First Name <SortIndicator state={this.state.sortByFirstName} />
-          </span>
-          <span onClick={onLastNameClick}>
-            Last Name <SortIndicator state={this.state.sortByLastName} />
-          </span>
-          <span onClick={onEmailClick}>
-            E-mail <SortIndicator state={this.state.sortByEmail} />
-          </span>
-          <span onClick={onPhoneClick}>
-            Phone <SortIndicator state={this.state.sortByPhone} />
-          </span>
-        </div>
+        <tr className='items-heading'>
+          <td>
+            <span onClick={onIdClick}>
+              ID <SortIndicator state={this.state.sortById} />
+            </span>
+          </td>
+          <td>
+            <span onClick={onFirstNameClick}>
+              First Name <SortIndicator state={this.state.sortByFirstName} />
+            </span>
+          </td>
+          <td>
+            <span onClick={onLastNameClick}>
+              Last Name <SortIndicator state={this.state.sortByLastName} />
+            </span>
+          </td>
+          <td>
+            <span onClick={onEmailClick}>
+              E-mail <SortIndicator state={this.state.sortByEmail} />
+            </span>
+          </td>
+          <td>
+            <span onClick={onPhoneClick}>
+              Phone <SortIndicator state={this.state.sortByPhone} />
+            </span>
+          </td>
+        </tr>
       </React.Fragment>
     );
   }

@@ -5,13 +5,23 @@ const ItemDetails = (props) => {
   const { id, firstName, lastName, email, phone } = props.children;
   const { onClickHandler } = props;
   return (
-    <li className='list-item-details' onClick={onClickHandler}>
-      <span>{id}</span>
-      <span>{firstName}</span>
-      <span>{lastName}</span>
-      <span>{email}</span>
-      <span>{phone}</span>
-    </li>
+    <tr className='list-item-details' onClick={onClickHandler}>
+      <td>
+        <span>{id}</span>
+      </td>
+      <td>
+        <span>{firstName}</span>
+      </td>
+      <td>
+        <span>{lastName}</span>
+      </td>
+      <td>
+        <span>{email}</span>
+      </td>
+      <td>
+        <span>{phone}</span>
+      </td>
+    </tr>
   );
 };
 

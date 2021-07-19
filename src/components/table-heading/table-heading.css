@@ -1,9 +1,7 @@
-.table-heading {
-  display: flex;
-  justify-content: space-around;
-  margin-top: 20px;
+.items-heading span {
+  cursor: pointer;
 }
 
-.table-heading span {
-  cursor: pointer;
+.items-heading td {
+  text-align: center;
 }
