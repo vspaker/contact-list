@@ -3,15 +3,79 @@ import './item-add.css';
 
 class ItemAdd extends Component {
   state = {
-    id: null,
-    firstName: null,
-    lastName: null,
-    email: null,
-    phone: null,
+    id: ``,
+    firstName: ``,
+    lastName: ``,
+    email: ``,
+    phone: ``,
+    idValid: false,
+    firstNameValid: false,
+    lastNameValid: false,
+    emailValid: false,
+    phoneValid: false,
+    formValid: false,
   };
 
   onChangeHandler = (e) => {
-    this.setState({ [e.target.id]: e.target.value });
+    const key = e.target.id;
+    const value = e.target.value;
+    this.setState({ [key]: value }, () => {
+      this.validateField(key, value);
+    });
+  };
+
+  validateField = (fieldName, value) => {
+    let idValid = this.state.idValid;
+    let firstNameValid = this.state.firstNameValid;
+    let lastNameValid = this.state.lastNameValid;
+    let emailValid = this.state.emailValid;
+    let phoneValid = this.state.phoneValid;
+
+    const digits = /^\d+$/;
+    const letters = /^[а-яА-ЯёЁa-zA-Z]+$/;
+    const email = /^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i;
+    const phone = /^\+?[78][-\(]?\d{3}\)?-?\d{3}-?\d{2}-?\d{2}$/;
+
+    switch (fieldName) {
+      case 'id':
+        idValid = Boolean(value.match(digits));
+        break;
+      case 'firstName':
+        firstNameValid = Boolean(value.match(letters));
+        break;
+      case 'lastName':
+        lastNameValid = Boolean(value.match(letters));
+        break;
+      case 'email':
+        emailValid = Boolean(value.match(email));
+        break;
+      case 'phone':
+        phoneValid = Boolean(value.match(phone));
+        break;
+      default:
+        break;
+    }
+    this.setState(
+      {
+        idValid,
+        firstNameValid,
+        lastNameValid,
+        emailValid,
+        phoneValid,
+      },
+      this.validateForm
+    );
+  };
+
+  validateForm = () => {
+    this.setState({
+      formValid:
+        this.state.idValid &&
+        this.state.firstNameValid &&
+        this.state.lastNameValid &&
+        this.state.emailValid &&
+        this.state.phoneValid,
+    });
   };
 
   _adaptToList = (item) => {
@@ -67,6 +131,8 @@ class ItemAdd extends Component {
                 <input
                   type='text'
                   id='id'
+                  placeholder='001'
+                  value={this.state.id}
                   onChange={this.onChangeHandler}
                 ></input>
               </td>
@@ -74,6 +140,8 @@ class ItemAdd extends Component {
                 <input
                   type='text'
                   id='firstName'
+                  placeholder='John'
+                  value={this.state.firstName}
                   onChange={this.onChangeHandler}
                 ></input>
               </td>
@@ -81,6 +149,8 @@ class ItemAdd extends Component {
                 <input
                   type='text'
                   id='lastName'
+                  placeholder='Smith'
+                  value={this.state.lastName}
                   onChange={this.onChangeHandler}
                 ></input>
               </td>
@@ -88,6 +158,8 @@ class ItemAdd extends Component {
                 <input
                   type='text'
                   id='email'
+                  placeholder='John.Smith@gmail.com'
+                  value={this.state.email}
                   onChange={this.onChangeHandler}
                 ></input>
               </td>
@@ -95,13 +167,15 @@ class ItemAdd extends Component {
                 <input
                   type='text'
                   id='phone'
+                  placeholder='(903)000-00-00'
+                  value={this.state.phone}
                   onChange={this.onChangeHandler}
                 ></input>
               </td>
             </tr>
             <tr>
               <td>
-                <button>Add Contact</button>
+                <button disabled={!this.state.formValid}>Add Contact</button>
               </td>
             </tr>
           </tbody>

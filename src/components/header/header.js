@@ -7,6 +7,7 @@ class Header extends Component {
     return (
       <ErrorBoundry>
         <header>
+          <p>Select data:</p>
           <button onClick={onSmallClick}>Small</button>
           <button onClick={onFullClick}>Full</button>
         </header>

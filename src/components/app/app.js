@@ -48,6 +48,10 @@ class App extends Component {
   setSortedData = (state, criteria) => {
     const { items } = this.state;
     const sortedData = sortData(items, criteria, state);
+
+    if (this.state.currentItems.length !== 0) {
+      this.setState({ currentItems: sortedData });
+    }
     this.setState({ items: sortedData });
     this.updateItems(sortedData);
   };
