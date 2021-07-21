@@ -23,24 +23,26 @@ class App extends Component {
     totalPages: null,
     searchMode: false,
     addNewItemMode: false,
+    isAppStarted: false,
+    firstLoading: true,
   };
 
   apiService = new ApiService();
 
   setSmallData = (e) => {
     e.stopPropagation();
-    this.setState({ isLoading: true });
+    this.setState({ isLoading: true, firstLoading: false });
     this.apiService.getSmallData().then((items) => {
-      this.setState({ isLoading: false });
+      this.setState({ isLoading: false, isAppStarted: true });
       this.setState({ items, backUpItems: items, addNewItemMode: true });
     });
   };
 
   setFullData = (e) => {
     e.stopPropagation();
-    this.setState({ isLoading: true });
+    this.setState({ isLoading: true, firstLoading: false });
     this.apiService.getFullData().then((items) => {
-      this.setState({ isLoading: false });
+      this.setState({ isLoading: false, isAppStarted: true });
       this.setState({ items, backUpItems: items, addNewItemMode: true });
     });
   };
@@ -125,7 +127,8 @@ class App extends Component {
         />
       );
 
-    const isAppStarted = this.state.items.length > 0;
+    const firstLoading = this.state.firstLoading;
+    const isAppStarted = this.state.isAppStarted;
     const addNewItemMode = this.state.addNewItemMode;
 
     const addTable =
@@ -140,9 +143,9 @@ class App extends Component {
     const filter = isAppStarted ? (
       <FilterTextarea onSearch={this.onSearch} />
     ) : null;
-    const firstScreen = isAppStarted ? null : (
+    const firstScreen = firstLoading ? (
       <Header onSmallClick={this.setSmallData} onFullClick={this.setFullData} />
-    );
+    ) : null;
 
     return (
       <ErrorBoundry>

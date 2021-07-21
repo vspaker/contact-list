@@ -167,7 +167,7 @@ class ItemAdd extends Component {
                 <input
                   type='text'
                   id='phone'
-                  placeholder='(903)000-00-00'
+                  placeholder='+79030000000'
                   value={this.state.phone}
                   onChange={this.onChangeHandler}
                 ></input>
